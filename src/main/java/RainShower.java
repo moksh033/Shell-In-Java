@@ -48,7 +48,7 @@ public class RainShower {
         root.setBackground(BLACK);
         root.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
 
-        JTextArea title = new JTextArea("####  #   #  ####  #      #####\n#   # #   #   ##   #        #\n####  #####   ##   #        #\n#   # #   #   ##   #        #\n####  #   #  ####  #####    #\n\n####  #   #   ###    ####  #   #  #####  #   #\n#   #  # #     #    #      #   #    #    ##  #\n####    #     #     ###    #   #    #    # # #\n#      # #   #      #      #   #    #    #  ##\n#     #   #  #####  ####    ###   #####  #   #");
+        JTextArea title = new JTextArea("BUILT BY MOKSH");
         title.setForeground(GREEN);
         title.setBackground(BLACK);
         title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
