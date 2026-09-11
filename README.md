@@ -85,6 +85,10 @@ java -jar target/Shell-In-Java.jar
 
 ## 🖥️ Preview
 
+## 🖼️ Preview
+
+![Shell Preview](Screenshot%202026-09-12%20043057.png)
+
 ```text
 $ pwd
 /home/user/Shell-In-Java
