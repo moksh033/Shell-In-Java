@@ -48,10 +48,20 @@ public class RainShower {
         root.setBackground(BLACK);
         root.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
 
-        JTextArea title = new JTextArea("####  #   # ##### #     #####\n#   # #   #   #   #       #\n####  #   #   #   #       #\n#   # #   #   #   #       #\n####   ###  ##### #####   #\n\n####  #   #     #   #  ###  #   #  #### #   #\n#   # #   #     ## ## #   # #  #  #    #   #\n####   ###      # # # #   # ###    ### #####\n#   #   #       #   # #   # #  #      # #   #\n####    #       #   #  ###  #   # ####  #   #");
+        JTextArea title = new JTextArea(
+    "####  #   # ##### #     #####\n" +
+    "#   # #   #   #   #       #  \n" +
+    "####  #   #   #   #       #  \n" +
+    "#   # #   #   #   #       #  \n" +
+    "####   ###  ##### #####   #  \n\n" +
+    "####  #   #   #   #   ###  #   #  #### #   #\n" +
+    "#   # #   #   ## ## #   # #   #  #     #   #\n" +
+    "####   ###    # # # #   # #####   ###  #####\n" +
+    "#   #   #     #   # #   # #   #      # #   #\n" +
+    "####    #     #   #  ###  #   # ####  #   #");
         title.setForeground(GREEN);
+        title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 12));
         title.setBackground(BLACK);
-        title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
         title.setEditable(false);
         title.setFocusable(false);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
