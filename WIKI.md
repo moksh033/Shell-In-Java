@@ -6,7 +6,7 @@ Shell opens as a black desktop terminal named `Shell`. Its green symbol-art head
 
 ## Download and Run
 
-1. Download `Shell-Windows.zip` from release `v1.0.0`.
+1. Download the compact `Shell-Windows.zip` from release `v1.0.0`.
 2. Extract the ZIP without separating the `app` and `runtime` folders.
 3. Open the extracted folder.
 4. Double-click `Shell.exe`.

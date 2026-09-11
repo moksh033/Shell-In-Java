@@ -38,7 +38,7 @@ The shell follows a simple command pipeline:
 
 ### Windows app
 
-Download `Shell-Windows.zip` from the Releases page, extract it, and double-click `Shell.exe`. The window is titled `Shell` and opens with a green symbol-art `BUILT BY MOKSH` heading.
+Download the compact `Shell-Windows.zip` from the Releases page, extract it, and double-click `Shell.exe`. The package includes a minimal Java runtime and is about 36 MB. The window is titled `Shell` and opens with a green symbol-art `BUILT BY MOKSH` heading.
 
 Keep the extracted `app` and `runtime` folders beside `Shell.exe`.
 
