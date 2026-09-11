@@ -68,7 +68,7 @@ Windows PowerShell:
 java -jar .\Shell-In-Java.jar
 ```
 
-For automatic Java 25 installation, download `run.ps1` beside the JAR and run:
+For the easiest Windows setup, download `run.ps1` from the release and run it. If the JAR is not in the same folder, the launcher downloads it automatically:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass

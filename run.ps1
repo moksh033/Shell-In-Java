@@ -3,6 +3,7 @@ $ErrorActionPreference = "Stop"
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $buildDirectory = Join-Path $projectRoot "target\Shell-In-Java-build"
 $downloadedJar = Join-Path $projectRoot "Shell-In-Java.jar"
+$releaseJarUrl = "https://github.com/moksh033/Shell-In-Java/releases/latest/download/Shell-In-Java.jar"
 
 function Test-Java25($javaPath) {
     if (-not (Test-Path $javaPath)) {
@@ -50,6 +51,18 @@ $env:Path = "$(Split-Path $java25Path -Parent);$env:Path"
 
 Push-Location $projectRoot
 try {
+    if (-not (Test-Path $downloadedJar)) {
+        $downloadedJar = Get-ChildItem $projectRoot -File -Filter "Shell-In-Java*.jar" -ErrorAction SilentlyContinue |
+            Sort-Object Length -Descending |
+            Select-Object -First 1 -ExpandProperty FullName
+    }
+
+    if (-not $downloadedJar -and -not (Get-Command mvn -ErrorAction SilentlyContinue)) {
+        Write-Host "Shell-In-Java.jar was not found. Downloading the latest release..."
+        $downloadedJar = Join-Path $projectRoot "Shell-In-Java.jar"
+        Invoke-WebRequest -Uri $releaseJarUrl -OutFile $downloadedJar
+    }
+
     if (Test-Path $downloadedJar) {
         $jarPath = $downloadedJar
     } else {
