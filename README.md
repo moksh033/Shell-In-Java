@@ -1,18 +1,42 @@
 # Shell-In-Java
 
-A small interactive shell written in Java. It supports built-in commands, external processes, quoting, redirection, and command completion on POSIX terminals.
+> A lightweight command shell built from scratch in Java 25.
 
-## Requirements
+Shell-In-Java accepts interactive commands, runs external programs, understands quoting and redirection, and provides terminal autocomplete on POSIX systems.
+
+## ✨ Technologies
 
 - Java 25
-- Maven 3.9+
-- Linux, macOS, or WSL for raw terminal mode and autocomplete
+- Maven
+- JNA
+- ProcessBuilder
+- POSIX terminal APIs
 
-Native Windows PowerShell is also supported with normal line input through `run.ps1`.
+## 🚀 Features
 
-## Run on Windows
+- Built-in commands: `cd`, `pwd`, `echo`, `type`, and `exit`
+- External command execution through the system `PATH`
+- Single and double quotes with escape handling
+- Standard output and error redirection
+- Append and overwrite file modes
+- Tab autocomplete on Linux, macOS, and WSL
+- Windows PowerShell support with normal line input
+- Standalone executable JAR with dependencies included
 
-From PowerShell:
+## 🧠 The Process
+
+The shell follows a simple command pipeline:
+
+1. `Main.java` reads input from the terminal.
+2. `Parser.java` converts the line into arguments and redirection rules.
+3. `Shell.java` selects a built-in command or external process.
+4. Built-ins execute directly inside the application.
+5. External commands run through Java's `ProcessBuilder`.
+6. Terminal support restores the previous terminal state after each command.
+
+## 📦 Running the Project
+
+### Windows PowerShell
 
 ```powershell
 cd path\to\Shell-In-Java
@@ -20,9 +44,9 @@ Set-ExecutionPolicy -Scope Process Bypass
 .\run.ps1
 ```
 
-The launcher selects the installed Java 25 runtime, builds the project, and starts the shell.
+The launcher selects Java 25, builds the project, and starts the shell.
 
-## Run on Linux, macOS, or WSL
+### Linux, macOS, or WSL
 
 ```bash
 cd path/to/Shell-In-Java
@@ -30,51 +54,94 @@ chmod +x run.sh
 ./run.sh
 ```
 
-## Build Manually
+### Run the JAR directly
+
+Download `Shell-In-Java.jar` from the Releases page and run:
+
+```bash
+java -jar Shell-In-Java.jar
+```
+
+Windows PowerShell:
+
+```powershell
+java -jar .\Shell-In-Java.jar
+```
+
+## 🧪 Build From Source
 
 ```bash
 mvn clean package -Ddir=target/Shell-In-Java-build
 java -jar target/Shell-In-Java-build/Shell-In-Java.jar
 ```
 
-## Run From the JAR
+## 🖥️ Preview
 
-To share the shell, send the file `Shell-In-Java.jar` from `target/Shell-In-Java-build/`.
-The recipient needs Java 25 or newer, then runs:
+```text
+$ pwd
+/home/user/Shell-In-Java
 
-```bash
+$ echo Hello from Shell-In-Java
+Hello from Shell-In-Java
+
+$ type echo
+
+
+$ echo First line > output.txt
+$ echo Second line >> output.txt
+$ cat output.txt
+First line
+Second line
+
+$ exit
+```
+
+## 🧰 Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `cd <directory>` | Change the current directory |
+| `pwd` | Print the current working directory |
+| `echo <text>` | Print text to the terminal |
+| `type <command>` | Identify built-in and external commands |
+| `exit` | Close the shell |
+
+External commands available in the system `PATH` can also be executed:
+
+```text
+ls
 java -version
-java -jar Shell-In-Java.jar
+whoami
+cat file.txt
 ```
 
-On Windows PowerShell:
+## 📁 Project Structure
 
-```powershell
-java -jar .\Shell-In-Java.jar
+```text
+src/main/java/
+├── Main.java
+└── shell/
+	├── Shell.java
+	├── autocomplete/
+	├── command/
+	├── environment/
+	├── io/
+	├── parser/
+	├── process/
+	└── terminal/
 ```
 
-Linux, macOS, or WSL provides raw terminal input and Tab completion. Windows runs with normal line input.
+## 🔀 Redirection Examples
 
-## Supported Commands
+```text
+echo Hello > output.txt
+echo Another line >> output.txt
+unknown-command 2> errors.txt
+unknown-command 2>> errors.txt
+```
 
-Built-ins:
+Linux, macOS, and WSL provide raw terminal input and Tab autocomplete. Windows uses normal line-based input.
 
-- `cd`
-- `pwd`
-- `echo`
-- `type`
-- `exit`
+## 🔗 Repository
 
-External commands are resolved through `PATH` and executed with Java's `ProcessBuilder`.
-
-Redirection is supported with `>`, `>>`, `2>`, and `2>>`.
-
-## Structure
-
-- `Main.java`: interactive input loop
-- `shell/Shell.java`: command dispatch
-- `shell/parser`: quoting, escaping, and redirection parsing
-- `shell/command`: built-in and external commands
-- `shell/process`: process execution
-- `shell/terminal`: POSIX raw terminal support through JNA
-- `shell/autocomplete`: command and executable completion
+https://github.com/moksh033/Shell-In-Java
