@@ -38,7 +38,7 @@ public class RainShower {
     }
 
     private void show() {
-        JFrame frame = new JFrame("RainShower");
+        JFrame frame = new JFrame("Terminal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(760, 500));
         frame.setSize(900, 600);
@@ -48,9 +48,9 @@ public class RainShower {
         root.setBackground(BLACK);
         root.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
 
-        JLabel title = new JLabel("RAINSHOWER");
-        title.setForeground(RED);
-        title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 42));
+        JLabel title = new JLabel("<html><pre>  #   #  #######  ###  #   #  #######  #######  ######   #######  ######   #   #  #######  ######<br>  ## ##  #        #   # ## ##  #        #        #     #  #        #     #  #   #  #        #     #<br>  # # #  #####    #   # # # #  #####    #####    ######   #####    ######   #   #  #####    ######<br>  #   #  #        #   # #   #  #        #        #   #    #        #   #    #   #  #        #   #<br>  #   #  #######   ###  #   #  #######  #######  #    #   #######  #    #   #######  #######  #    #</pre></html>");
+        title.setForeground(new Color(55, 220, 100));
+        title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
         root.add(title, BorderLayout.NORTH);
 
         output.setEditable(false);

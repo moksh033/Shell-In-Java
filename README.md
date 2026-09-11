@@ -36,15 +36,11 @@ The shell follows a simple command pipeline:
 
 ## 📦 Running the Project
 
-### Windows PowerShell
+### Windows app
 
-```powershell
-cd path\to\Shell-In-Java
-Set-ExecutionPolicy -Scope Process Bypass
-.\run.ps1
-```
+Download `RainShower-Windows.zip` from the Releases page, extract it, and double-click `RainShower.exe`.
 
-The launcher checks for Java 25, installs Eclipse Temurin Java 25 with `winget` if it is missing, builds the project, and starts the shell.
+Keep the extracted `app` and `runtime` folders beside `RainShower.exe`.
 
 ### Linux, macOS, or WSL
 
@@ -78,14 +74,7 @@ RainShower.exe
 
 This opens the black RainShower terminal interface directly, without PowerShell. Keep the extracted `app` and `runtime` folders beside the executable.
 
-For the easiest Windows setup, download `run.ps1` from the release and run it. If the JAR is not in the same folder, the launcher downloads it automatically:
-
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\run.ps1
-```
-
-The launcher installs Eclipse Temurin Java 25 with `winget` when Java 25 is missing.
+For a simple Java-only launch, download `Shell-In-Java.jar` and run `java -jar Shell-In-Java.jar` with Java 25 installed.
 
 ## 🧪 Build From Source
 
