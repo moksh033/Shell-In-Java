@@ -2,6 +2,7 @@ $ErrorActionPreference = "Stop"
 
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $buildDirectory = Join-Path $projectRoot "target\Shell-In-Java-build"
+$downloadedJar = Join-Path $projectRoot "Shell-In-Java.jar"
 
 function Test-Java25($javaPath) {
     if (-not (Test-Path $javaPath)) {
@@ -47,24 +48,29 @@ if (-not $java25Path) {
 $env:JAVA_HOME = Split-Path (Split-Path $java25Path -Parent) -Parent
 $env:Path = "$(Split-Path $java25Path -Parent);$env:Path"
 
-$maven = Get-Command mvn -ErrorAction SilentlyContinue
-if ($null -eq $maven) {
-    $localMaven = Join-Path $projectRoot "..\.maven\maven-3.9.16\bin\mvn.cmd"
-    if (Test-Path $localMaven) {
-        $maven = $localMaven
-    } else {
-        throw "Maven was not found. Install Maven or add mvn.cmd to PATH."
-    }
-}
-
 Push-Location $projectRoot
 try {
-    & $maven clean package "-Ddir=$buildDirectory"
-    if ($LASTEXITCODE -ne 0) {
-        exit $LASTEXITCODE
+    if (Test-Path $downloadedJar) {
+        $jarPath = $downloadedJar
+    } else {
+        $maven = Get-Command mvn -ErrorAction SilentlyContinue
+        if ($null -eq $maven) {
+            $localMaven = Join-Path $projectRoot "..\.maven\maven-3.9.16\bin\mvn.cmd"
+            if (Test-Path $localMaven) {
+                $maven = $localMaven
+            } else {
+                throw "Maven was not found. Install Maven or place Shell-In-Java.jar beside run.ps1."
+            }
+        }
+
+        & $maven clean package "-Ddir=$buildDirectory"
+        if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+        }
+        $jarPath = Join-Path $buildDirectory "Shell-In-Java.jar"
     }
 
-    & $java25Path -jar (Join-Path $buildDirectory "Shell-In-Java.jar") @args
+    & $java25Path -jar $jarPath @args
     exit $LASTEXITCODE
 } finally {
     Pop-Location
