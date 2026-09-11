@@ -1,0 +1,2 @@
+Welcome to Shell!
+This file is ready for the echo and redirection demo.
