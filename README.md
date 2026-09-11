@@ -1,8 +1,8 @@
-# Shell-In-Java
+# Shell
 
-> A lightweight command shell built from scratch in Java 25, wrapped in the RainShower terminal interface and branded “Built By Moksh”.
+> A lightweight command shell built from scratch in Java 25 with a green “BUILT BY MOKSH” terminal interface.
 
-Shell-In-Java accepts interactive commands, runs external programs, understands quoting and redirection, and provides terminal autocomplete on POSIX systems.
+Shell accepts interactive commands, runs external programs, understands quoting and redirection, and provides terminal autocomplete on POSIX systems.
 
 ## ✨ Technologies
 
@@ -38,9 +38,9 @@ The shell follows a simple command pipeline:
 
 ### Windows app
 
-Download `RainShower-Windows.zip` from the Releases page, extract it, and double-click `RainShower.exe`. The window is titled `Shell-In-Java` and opens with the green symbol-art “Built By Moksh” heading.
+Download `Shell-Windows.zip` from the Releases page, extract it, and double-click `Shell.exe`. The window is titled `Shell` and opens with a green symbol-art `BUILT BY MOKSH` heading.
 
-Keep the extracted `app` and `runtime` folders beside `RainShower.exe`.
+Keep the extracted `app` and `runtime` folders beside `Shell.exe`.
 
 ### Linux, macOS, or WSL
 
@@ -52,29 +52,29 @@ chmod +x run.sh
 
 ### Run the JAR directly
 
-Download `Shell-In-Java.jar` from the Releases page and run:
+Download `Shell.jar` from the Releases page and run:
 
 ```bash
-java -jar Shell-In-Java.jar
+java -jar Shell.jar
 ```
 
 Windows PowerShell:
 
 ```powershell
-java -jar .\Shell-In-Java.jar
+java -jar .\Shell.jar
 ```
 
 ### Run the Windows app
 
-Download `RainShower-Windows.zip` from the Releases page and extract it. Open the extracted folder and double-click:
+Download `Shell-Windows.zip` from the Releases page and extract it. Open the extracted folder and double-click:
 
 ```text
-RainShower.exe
+Shell.exe
 ```
 
-This opens the black RainShower terminal interface directly, without PowerShell. Keep the extracted `app` and `runtime` folders beside the executable.
+This opens the black Shell terminal interface directly, without PowerShell. Keep the extracted `app` and `runtime` folders beside the executable.
 
-For a simple Java-only launch, download `Shell-In-Java.jar` and run `java -jar Shell-In-Java.jar` with Java 25 installed.
+For a simple Java-only launch, download `Shell.jar` and run `java -jar Shell.jar` with Java 25 installed.
 
 ## 🧪 Build From Source
 

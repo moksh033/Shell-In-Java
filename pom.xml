@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>dev.moksh</groupId>
-    <artifactId>Shell-In-Java</artifactId>
+    <artifactId>Shell</artifactId>
     <version>1.0</version>
 
     <properties>
@@ -41,7 +41,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>Shell-In-Java</finalName>
+                    <finalName>Shell</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>

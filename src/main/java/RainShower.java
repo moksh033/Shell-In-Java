@@ -38,7 +38,7 @@ public class RainShower {
     }
 
     private void show() {
-        JFrame frame = new JFrame("Shell-In-Java");
+        JFrame frame = new JFrame("Shell");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(760, 500));
         frame.setSize(900, 600);
@@ -48,7 +48,7 @@ public class RainShower {
         root.setBackground(BLACK);
         root.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
 
-        JTextArea title = new JTextArea("  ######  #   #  #######  #       ######\n  #       #   #  #        #       #     #\n  ######  #####  #####    #       ######\n       #  #   #  #        #       #   #\n  ######  #   #  #######  ####### #    #\n\n  ######  ##   ##  ######   ######  #   #\n  #       # # # #  #     #  #       #   #\n  ####    #  #  #  ######   ####    #   #\n  #       #     #  #   #    #       #   #\n  ######  #     #  #    #   ######   ###");
+        JTextArea title = new JTextArea("  ######  #   #  #######  #       ######\n  #       #   #  #        #       #     #\n  ######  #####  #####    #       ######\n       #  #   #  #        #       #   #\n  ######  #   #  #######  ####### #    #\n\n  ######  #   #  ######   #   #  ######  #  #   #\n  #       #   #  #     #  #   #  #       #  ##  #\n  #####   #####  ######   #   #  ####    #  # # #\n  #       #   #  #   #    #   #  #       #  #  ##\n  ######  #   #  #    #    ###   ######  #  #   #");
         title.setForeground(GREEN);
         title.setBackground(BLACK);
         title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
@@ -63,7 +63,7 @@ public class RainShower {
         output.setCaretColor(GREEN);
         output.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
         output.setMargin(new Insets(12, 12, 12, 12));
-        output.setText("RainShower terminal\nType help to see available commands.\n\n");
+        output.setText("Type help to see available commands.\n\n");
 
         JScrollPane scrollPane = new JScrollPane(output);
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(55, 55, 55)));
