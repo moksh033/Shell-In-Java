@@ -14,7 +14,7 @@ Shell-In-Java accepts interactive commands, runs external programs, understands 
 
 ## 🚀 Features
 
-- Built-in commands: `cd`, `pwd`, `echo`, `type`, and `exit`
+- Built-in commands: `cd`, `pwd`, `echo`, `type`, `help`, and `exit`
 - External command execution through the system `PATH`
 - Single and double quotes with escape handling
 - Standard output and error redirection
@@ -104,6 +104,7 @@ $ exit
 | `pwd` | Print the current working directory |
 | `echo <text>` | Print text to the terminal |
 | `type <command>` | Identify built-in and external commands |
+| `help` | Show the integrated Shell-In-Java commands |
 | `exit` | Close the shell |
 
 External commands available in the system `PATH` can also be executed:
