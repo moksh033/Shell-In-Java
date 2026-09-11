@@ -71,8 +71,8 @@ java -jar .\Shell-In-Java.jar
 ## 🧪 Build From Source
 
 ```bash
-mvn clean package -Ddir=target/Shell-In-Java-build
-java -jar target/Shell-In-Java-build/Shell-In-Java.jar
+mvn clean package
+java -jar target/Shell-In-Java.jar
 ```
 
 ## 🖥️ Preview
