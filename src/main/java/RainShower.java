@@ -25,7 +25,7 @@ import shell.Shell;
 
 public class RainShower {
     private static final Color BLACK = new Color(8, 8, 8);
-    private static final Color RED = new Color(235, 45, 55);
+    private static final Color GREEN = new Color(55, 220, 100);
     private static final Color TEXT = new Color(235, 235, 235);
 
     private final JTextArea output = new JTextArea();
@@ -38,7 +38,7 @@ public class RainShower {
     }
 
     private void show() {
-        JFrame frame = new JFrame("Terminal");
+        JFrame frame = new JFrame("Shell-In-Java");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(760, 500));
         frame.setSize(900, 600);
@@ -48,15 +48,19 @@ public class RainShower {
         root.setBackground(BLACK);
         root.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
 
-        JLabel title = new JLabel("<html><pre>  #   #  #######  ###  #   #  #######  #######  ######   #######  ######   #   #  #######  ######<br>  ## ##  #        #   # ## ##  #        #        #     #  #        #     #  #   #  #        #     #<br>  # # #  #####    #   # # # #  #####    #####    ######   #####    ######   #   #  #####    ######<br>  #   #  #        #   # #   #  #        #        #   #    #        #   #    #   #  #        #   #<br>  #   #  #######   ###  #   #  #######  #######  #    #   #######  #    #   #######  #######  #    #</pre></html>");
-        title.setForeground(new Color(55, 220, 100));
-        title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 15));
+        JTextArea title = new JTextArea("  ######  #   #  #######  #       ######\n  #       #   #  #        #       #     #\n  ######  #####  #####    #       ######\n       #  #   #  #        #       #   #\n  ######  #   #  #######  ####### #    #\n\n  ######  ##   ##  ######   ######  #   #\n  #       # # # #  #     #  #       #   #\n  ####    #  #  #  ######   ####    #   #\n  #       #     #  #   #    #       #   #\n  ######  #     #  #    #   ######   ###");
+        title.setForeground(GREEN);
+        title.setBackground(BLACK);
+        title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
+        title.setEditable(false);
+        title.setFocusable(false);
+        title.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
         root.add(title, BorderLayout.NORTH);
 
         output.setEditable(false);
         output.setBackground(BLACK);
         output.setForeground(TEXT);
-        output.setCaretColor(RED);
+        output.setCaretColor(GREEN);
         output.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
         output.setMargin(new Insets(12, 12, 12, 12));
         output.setText("RainShower terminal\nType help to see available commands.\n\n");
@@ -70,14 +74,14 @@ public class RainShower {
         commandBar.setBackground(BLACK);
         input.setBackground(new Color(24, 24, 24));
         input.setForeground(TEXT);
-        input.setCaretColor(RED);
+        input.setCaretColor(GREEN);
         input.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
         input.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(70, 70, 70)),
                 BorderFactory.createEmptyBorder(9, 10, 9, 10)));
         input.addActionListener(this::runCommand);
 
-        runButton.setBackground(RED);
+        runButton.setBackground(GREEN);
         runButton.setForeground(Color.WHITE);
         runButton.setFocusPainted(false);
         runButton.addActionListener(this::runCommand);

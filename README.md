@@ -1,6 +1,6 @@
 # Shell-In-Java
 
-> A lightweight command shell built from scratch in Java 25, wrapped in the RainShower terminal interface.
+> A lightweight command shell built from scratch in Java 25, wrapped in the RainShower terminal interface and branded “Built By Moksh”.
 
 Shell-In-Java accepts interactive commands, runs external programs, understands quoting and redirection, and provides terminal autocomplete on POSIX systems.
 
@@ -38,7 +38,7 @@ The shell follows a simple command pipeline:
 
 ### Windows app
 
-Download `RainShower-Windows.zip` from the Releases page, extract it, and double-click `RainShower.exe`.
+Download `RainShower-Windows.zip` from the Releases page, extract it, and double-click `RainShower.exe`. The window is titled `Shell-In-Java` and opens with the green symbol-art “Built By Moksh” heading.
 
 Keep the extracted `app` and `runtime` folders beside `RainShower.exe`.
 
