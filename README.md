@@ -44,7 +44,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 .\run.ps1
 ```
 
-The launcher selects Java 25, builds the project, and starts the shell.
+The launcher checks for Java 25, installs Eclipse Temurin Java 25 with `winget` if it is missing, builds the project, and starts the shell.
 
 ### Linux, macOS, or WSL
 
@@ -67,6 +67,15 @@ Windows PowerShell:
 ```powershell
 java -jar .\Shell-In-Java.jar
 ```
+
+For automatic Java 25 installation, download `run.ps1` beside the JAR and run:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+.\run.ps1
+```
+
+The launcher installs Eclipse Temurin Java 25 with `winget` when Java 25 is missing.
 
 ## 🧪 Build From Source
 
