@@ -4,7 +4,7 @@
 
 Shell accepts interactive commands, runs external programs, understands quoting and redirection, and provides terminal autocomplete on POSIX systems.
 
-## ✨ Technologies
+## Tech Stack Used
 
 - Java 25
 - Maven
@@ -12,7 +12,7 @@ Shell accepts interactive commands, runs external programs, understands quoting 
 - ProcessBuilder
 - POSIX terminal APIs
 
-## 🚀 Features
+## Features
 
 - Built-in commands: `cd`, `pwd`, `echo`, `type`, `help`, and `exit`
 - External command execution through the system `PATH`
@@ -23,7 +23,7 @@ Shell accepts interactive commands, runs external programs, understands quoting 
 - Windows PowerShell support with normal line input
 - Standalone executable JAR with dependencies included
 
-## 🧠 The Process
+##  Workflow
 
 The shell follows a simple command pipeline:
 
@@ -34,7 +34,7 @@ The shell follows a simple command pipeline:
 5. External commands run through Java's `ProcessBuilder`.
 6. Terminal support restores the previous terminal state after each command.
 
-## 📦 Running the Project
+## Running the Project
 
 ### Windows app
 
@@ -85,7 +85,7 @@ java -jar target/Shell-In-Java.jar
 
 ## 🖥️ Preview
 
-## 🖼️ Preview
+## Preview
 
 ![Shell Preview](Screenshot%202026-09-12%20043057.png)
 
@@ -108,7 +108,7 @@ Second line
 $ exit
 ```
 
-## 🧰 Available Commands
+## Available Commands
 
 | Command | Description |
 |---------|-------------|
@@ -128,7 +128,7 @@ whoami
 cat file.txt
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 src/main/java/
@@ -144,7 +144,7 @@ src/main/java/
 	└── terminal/
 ```
 
-## 🔀 Redirection Examples
+ps: Redirection Examples
 
 ```text
 echo Hello > output.txt
