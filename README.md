@@ -1,8 +1,8 @@
 # Shell
 
-> A lightweight command shell built from scratch in Java 25 with a green “BUILT BY MOKSH” terminal interface.
+A lightweight command shell which has been built from scratch using Java 25.
 
-Shell accepts interactive commands, runs external programs, understands quoting and redirection, and provides terminal autocomplete on POSIX systems.
+Shell accepts interactive commands, is capable of running external programs, understands quoting and redirection, and has terminal autocomplete facilities on POSIX systems.
 
 ## Tech Stack Used
 
@@ -27,20 +27,20 @@ Shell accepts interactive commands, runs external programs, understands quoting 
 
 The shell follows a simple command pipeline:
 
-1. `Main.java` reads input from the terminal.
-2. `Parser.java` converts the line into arguments and redirection rules.
-3. `Shell.java` selects a built-in command or external process.
-4. Built-ins execute directly inside the application.
-5. External commands run through Java's `ProcessBuilder`.
-6. Terminal support restores the previous terminal state after each command.
+The program Main.java obtains its input from the terminal.
+The file Parser.java turns the line into arguments and redirection rules.
+The built-in command or external process is selected by Shell.java.
+4. The built-in features operate directly within the application.
+Commands from outside the system are processed via Java's ProcessBuilder.
+After each command, terminal support reinstates the earlier terminal state.
 
 ## Running the Project
 
 ### Windows app
 
-Download the compact `Shell-Windows.zip` from the Releases page, extract it, and double-click `Shell.exe`. The package includes a minimal Java runtime and is about 36 MB. The window is titled `Shell` and opens with a green symbol-art `BUILT BY MOKSH` heading.
+Get the compact Shell-Windows.zip file from the Releases page, extract it and then double-click on Shell.exe. The package comes with a minimal Java runtime and has a size of about 36 MB. The window has the title Shell and initially displays a green symbol artwork with the heading BUILT BY MOKSH.
 
-Keep the extracted `app` and `runtime` folders beside `Shell.exe`.
+Leave the extracted `app` and `runtime` folders next to `Shell.exe`.
 
 ### Linux, macOS, or WSL
 
@@ -52,7 +52,7 @@ chmod +x run.sh
 
 ### Run the JAR directly
 
-Download `Shell.jar` from the Releases page and run:
+Get Shell.jar from the Releases page and run:
 
 ```bash
 java -jar Shell.jar
@@ -66,24 +66,23 @@ java -jar .\Shell.jar
 
 ### Run the Windows app
 
-Download `Shell-Windows.zip` from the Releases page and extract it. Open the extracted folder and double-click:
+Get the Shell-Windows.zip file from the Releases page and extract it. Once you have extracted it, open the folder and double-click:
 
 ```text
 Shell.exe
 ```
 
-This opens the black Shell terminal interface directly, without PowerShell. Keep the extracted `app` and `runtime` folders beside the executable.
+The black Shell terminal interface is opened directly, with no use of PowerShell. Make sure that the extracted `app` and `runtime` folders are kept next to the executable.
 
-For a simple Java-only launch, download `Shell.jar` and run `java -jar Shell.jar` with Java 25 installed.
+If you want to carry out a simple launch using just Java, download `Shell.jar` and then run the command `java -jar Shell.jar` making sure that Java 25 is installed.
 
-## 🧪 Build From Source
+## Build From Source
 
 ```bash
 mvn clean package
 java -jar target/Shell-In-Java.jar
 ```
 
-## 🖥️ Preview
 
 ## Preview
 
@@ -99,8 +98,8 @@ Hello from Shell-In-Java
 $ type echo
 
 
-$ echo First line > output.txt
-$ echo Second line >> output.txt
+First line > output.txt
+Append 'Second line' to output.txt
 $ more output.txt
 First line
 Second line
@@ -148,12 +147,12 @@ ps: Redirection Examples
 
 ```text
 echo Hello > output.txt
-echo Another line >> output.txt
+echo "Another line" >> output.txt
 unknown-command 2> errors.txt
 unknown-command 2>> errors.txt
 ```
 
-Linux, macOS, and WSL provide raw terminal input and Tab autocomplete. Windows uses normal line-based input.
+Linux, macOS and WSL offer direct access to terminal input together with Tab completion, while Windows uses standard line-by-line input.
 
 ## Repo Link
 
