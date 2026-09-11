@@ -1,6 +1,6 @@
 # Shell-In-Java
 
-> A lightweight command shell built from scratch in Java 25.
+> A lightweight command shell built from scratch in Java 25, wrapped in the RainShower terminal interface.
 
 Shell-In-Java accepts interactive commands, runs external programs, understands quoting and redirection, and provides terminal autocomplete on POSIX systems.
 
@@ -67,6 +67,16 @@ Windows PowerShell:
 ```powershell
 java -jar .\Shell-In-Java.jar
 ```
+
+### Run the Windows app
+
+Download `RainShower-Windows.zip` from the Releases page and extract it. Open the extracted folder and double-click:
+
+```text
+RainShower.exe
+```
+
+This opens the black RainShower terminal interface directly, without PowerShell. Keep the extracted `app` and `runtime` folders beside the executable.
 
 For the easiest Windows setup, download `run.ps1` from the release and run it. If the JAR is not in the same folder, the launcher downloads it automatically:
 
