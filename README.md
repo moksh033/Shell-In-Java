@@ -97,7 +97,7 @@ $ type echo
 
 $ echo First line > output.txt
 $ echo Second line >> output.txt
-$ cat output.txt
+$ more output.txt
 First line
 Second line
 

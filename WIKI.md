@@ -31,6 +31,7 @@ External commands available through `PATH` are supported as well.
 ```text
 echo Hello > output.txt
 echo More >> output.txt
+more output.txt
 unknown-command 2> errors.txt
 unknown-command 2>> errors.txt
 ```

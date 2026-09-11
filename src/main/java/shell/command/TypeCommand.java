@@ -1,5 +1,6 @@
 package shell.command;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,14 +65,22 @@ public class TypeCommand extends BuiltinCommand {
             return null;
         }
 
-        String[] paths = pathEnv.split(":");
-        for (String dir : paths) {
-            Path commandPath = Paths.get(dir, commandName);
+        String[] paths = pathEnv.split(java.util.regex.Pattern.quote(File.pathSeparator));
+        String[] extensions = isWindows() ? new String[] {"", ".exe", ".cmd", ".bat", ".com"} : new String[] {""};
 
-            if (Files.exists(commandPath) && Files.isExecutable(commandPath)) {
-                return commandPath.toString();
+        for (String dir : paths) {
+            for (String extension : extensions) {
+                Path commandPath = Paths.get(dir, commandName + extension);
+
+                if (Files.exists(commandPath) && Files.isExecutable(commandPath)) {
+                    return commandPath.toString();
+                }
             }
         }
         return null;
+    }
+
+    private boolean isWindows() {
+        return System.getProperty("os.name").startsWith("Windows");
     }
 }

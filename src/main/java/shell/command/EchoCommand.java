@@ -12,14 +12,6 @@ public class EchoCommand implements Command {
         List<String> arguments = args.subList(1, args.size());
         String output = String.join(" ", arguments);
 
-        if (redirection != null) {
-            try {
-                FileUtils.writeToFile("", redirection.getFile(), redirection.isAppend());
-            } catch (IOException e) {
-                System.err.println("echo: " + e.getMessage());
-            }
-        }
-
         if (redirection != null && redirection.isStdout()) {
             try {
                 FileUtils.writeToFile(output + "\n", redirection.getFile(), redirection.isAppend());
