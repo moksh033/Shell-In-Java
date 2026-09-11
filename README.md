@@ -155,6 +155,6 @@ unknown-command 2>> errors.txt
 
 Linux, macOS, and WSL provide raw terminal input and Tab autocomplete. Windows uses normal line-based input.
 
-## 🔗 Repository
+## Repo Link
 
 https://github.com/moksh033/Shell-In-Java
