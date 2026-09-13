@@ -1,88 +1,75 @@
 # Shell
 
-A lightweight command shell which has been built from scratch using Java 25.
+A lightweight desktop command shell built from scratch using Java.
 
-Shell accepts interactive commands, is capable of running external programs, understands quoting and redirection, and has terminal autocomplete facilities on POSIX systems.
+Shell accepts interactive commands, is capable of running external programs, understands quoting and redirection, provides command history recall, and has terminal autocomplete facilities on POSIX systems.
 
 ## Tech Stack Used
 
-- Java 25
-- Maven
-- JNA
-- ProcessBuilder
-- POSIX terminal APIs
+- **Java 21 / 25**
+- **Maven**
+- **JNA (Java Native Access)**
+- **ProcessBuilder**
+- **POSIX terminal APIs (Termios)**
+- **Java Swing GUI**
 
 ## Features
 
-- Built-in commands: `cd`, `pwd`, `echo`, `type`, `help`, and `exit`
-- External command execution through the system `PATH`
-- Single and double quotes with escape handling
-- Standard output and error redirection
-- Append and overwrite file modes
-- Tab autocomplete on Linux, macOS, and WSL
-- Windows PowerShell support with normal line input
-- Standalone executable JAR with dependencies included
+- **Built-in commands**: `clear`, `cd`, `pwd`, `echo`, `type`, `help`, and `exit`
+- **Arrow-Up History**: Press `↑` (Up Arrow) to automatically type the last executed command
+- **External command execution**: Seamlessly run any program available in your system `PATH`
+- **Output & Error Redirection**: Overwrite (`>`, `1>`, `2>`) and append (`>>`, `1>>`, `2>>`) file redirection
+- **Quotes & Escapes**: Single and double quotes with full escape handling
+- **Tab autocomplete**: Interactive command completion on Linux, macOS, and WSL
+- **Cross-Platform**: Runs on Windows, Linux, and macOS
+- **Standalone Windows Desktop App**: Portable native executable bundle (`Shell.exe`) with bundled runtime
+- **Fat JAR**: Standalone executable JAR with all dependencies packaged
 
-##  Workflow
+## Workflow
 
-The shell follows a simple command pipeline:
+The shell follows a clean execution pipeline:
 
-The program Main.java obtains its input from the terminal.
-The file Parser.java turns the line into arguments and redirection rules.
-The built-in command or external process is selected by Shell.java.
-4. The built-in features operate directly within the application.
-Commands from outside the system are processed via Java's ProcessBuilder.
-After each command, terminal support reinstates the earlier terminal state.
+1. **Input**: `RainShower.java` (GUI) or `Main.java` (CLI) receives user input.
+2. **Parsing**: `Parser.java` tokenizes the input, extracts arguments, and separates redirection directives.
+3. **Dispatch**: `Shell.java` checks for built-in commands first.
+4. **Execution**:
+   - Built-ins execute directly within the shell environment.
+   - External commands are executed through `SystemProcessExecutor` via `ProcessBuilder`.
+5. **Redirection & Cleanup**: Handles file streams, errors, and restores terminal/view state.
 
 ## Running the Project
 
-### Windows app
+### 1. Windows App (Recommended)
 
-Get the compact Shell-Windows.zip file from the Releases page, extract it and then double-click on Shell.exe. The package comes with a minimal Java runtime and has a size of about 36 MB. The window has the title Shell and initially displays a green symbol artwork with the heading BUILT BY MOKSH.
+1. Download **`Shell-Windows.zip`** from [Releases](https://github.com/moksh033/Shell-In-Java/releases).
+2. Extract the ZIP.
+3. Open the folder and double-click:
+   ```text
+   Shell.exe
+   ```
+> Keep the `app` and `runtime` folders in the same directory as `Shell.exe`.
 
-Leave the extracted `app` and `runtime` folders next to `Shell.exe`.
+### 2. Standalone JAR
 
-### Linux, macOS, or WSL
-
-```bash
-cd path/to/Shell-In-Java
-chmod +x run.sh
-./run.sh
-```
-
-### Run the JAR directly
-
-Get Shell.jar from the Releases page and run:
+Download **`Shell.jar`** from [Releases](https://github.com/moksh033/Shell-In-Java/releases) and run:
 
 ```bash
 java -jar Shell.jar
 ```
 
-Windows PowerShell:
-
+On Windows PowerShell:
 ```powershell
 java -jar .\Shell.jar
 ```
 
-### Run the Windows app
-
-Get the Shell-Windows.zip file from the Releases page and extract it. Once you have extracted it, open the folder and double-click:
-
-```text
-Shell.exe
-```
-
-The black Shell terminal interface is opened directly, with no use of PowerShell. Make sure that the extracted `app` and `runtime` folders are kept next to the executable.
-
-If you want to carry out a simple launch using just Java, download `Shell.jar` and then run the command `java -jar Shell.jar` making sure that Java 25 is installed.
-
-## Build From Source
+### 3. Linux, macOS, or WSL
 
 ```bash
-mvn clean package
-java -jar target/Shell-In-Java.jar
+git clone https://github.com/moksh033/Shell-In-Java.git
+cd Shell-In-Java
+chmod +x run.sh
+./run.sh
 ```
-
 
 ## Preview
 
@@ -96,63 +83,84 @@ $ echo Hello from Shell-In-Java
 Hello from Shell-In-Java
 
 $ type echo
+echo is a shell builtin
 
-
-First line > output.txt
-Append 'Second line' to output.txt
+$ echo "First line" > output.txt
+$ echo "Second line" >> output.txt
 $ more output.txt
 First line
 Second line
 
-$ exit
+$ clear
 ```
 
 ## Available Commands
 
-| Command | Description |
-|---------|-------------|
-| `cd <directory>` | Change the current directory |
-| `pwd` | Print the current working directory |
-| `echo <text>` | Print text to the terminal |
-| `type <command>` | Identify built-in and external commands |
-| `help` | Show the integrated Shell-In-Java commands |
-| `exit` | Close the shell |
+### Built-in Commands
 
-External commands available in the system `PATH` can also be executed:
+| Command | Description | Example |
+|---|---|---|
+| `clear` | Clears the terminal output screen | `clear` |
+| `cd <dir>` | Changes the current working directory | `cd ..`, `cd C:\Users` |
+| `pwd` | Prints current working directory path | `pwd` |
+| `echo <text>` | Prints text or arguments to standard output | `echo Hello World` |
+| `type <cmd>` | Checks if a command is a built-in or finds its path | `type cd`, `type git` |
+| `help` | Displays help message with command list | `help` |
+| `exit` | Closes the Shell application | `exit` |
 
-```text
-ls
-java -version
-whoami
-cat file.txt
-```
+### External Commands
 
-## Project Structure
+Any command in your system's `PATH` works directly inside Shell:
 
-```text
-src/main/java/
-├── Main.java
-└── shell/
-	├── Shell.java
-	├── autocomplete/
-	├── command/
-	├── environment/
-	├── io/
-	├── parser/
-	├── process/
-	└── terminal/
-```
+| Category | Commands |
+|---|---|
+| **Files & Dirs** | `dir`, `ls`, `cat`, `more`, `mkdir`, `rmdir`, `rm`, `touch`, `cp`, `mv` |
+| **System Info** | `whoami`, `where`, `which`, `hostname`, `ver`, `uname -a`, `java -version` |
+| **Networking** | `ping`, `curl`, `ipconfig`, `ifconfig`, `nslookup`, `netstat` |
+| **Developer Tools** | `git`, `python`, `node`, `npm`, `javac`, `mvn`, `docker` |
+| **Process & Utilities** | `echo`, `findstr`, `grep`, `sort`, `tar`, `zip` |
 
-ps: Redirection Examples
+### Keyboard Shortcuts
+
+- **`↑` (Up Arrow)**: Automatically types the last executed command into the input box
+- **`Enter` / `RUN`**: Executes the entered command
+- **`Tab`** *(Linux / macOS)*: Autocompletes matching commands and executables
+
+## Stream Redirection
+
+Shell supports standard output and error redirection:
 
 ```text
+# Overwrite standard output
 echo Hello > output.txt
+
+# Append standard output
 echo "Another line" >> output.txt
+
+# Overwrite standard error
 unknown-command 2> errors.txt
+
+# Append standard error
 unknown-command 2>> errors.txt
+
+# Separate standard output and error
+build-command 1> build.log 2> error.log
 ```
 
-Linux, macOS and WSL offer direct access to terminal input together with Tab completion, while Windows uses standard line-by-line input.
+## Build From Source
+
+Requirements: Java 21+ and Maven.
+
+```bash
+# Build the standalone JAR
+mvn clean package
+
+# Run the built JAR
+java -jar target/Shell.jar
+
+# Build the native Windows app image (jpackage)
+jpackage --type app-image --name Shell --input target --main-jar Shell.jar --main-class RainShower --dest target
+```
 
 ## Repo Link
 

@@ -33,6 +33,7 @@ public class Shell {
         builtinCommands.put("cd", new CdCommand(environment));
         builtinCommands.put("type", new TypeCommand(builtinCommands, environment));
         builtinCommands.put("help", new HelpCommand());
+        builtinCommands.put("clear", new ClearCommand());
     }
 
     public Map<String, Command> getBuiltinCommands() {

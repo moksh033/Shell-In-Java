@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -32,6 +34,7 @@ public class RainShower {
     private final JTextField input = new JTextField();
     private final JButton runButton = new JButton("RUN");
     private final Shell shell = new Shell();
+    private String lastCommand = "";
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new RainShower().show());
@@ -48,17 +51,12 @@ public class RainShower {
         root.setBackground(BLACK);
         root.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
 
-        JTextArea title = new JTextArea(
-    "####  #   # ##### #     #####\n" +
-    "#   # #   #   #   #       #  \n" +
-    "####  #   #   #   #       #  \n" +
-    "#   # #   #   #   #       #  \n" +
-    "####   ###  ##### #####   #  \n\n" +
-    "####  #   #   #   #   ###  #   #  #### #   #\n" +
-    "#   # #   #   ## ## #   # #   #  #     #   #\n" +
-    "####   ###    # # # #   # #####   ###  #####\n" +
-    "#   #   #     #   # #   # #   #      # #   #\n" +
-    "####    #     #   #  ###  #   # ####  #   #");
+    JTextArea title = new JTextArea(
+    "#   #  #####  #      #####  #     #\n" +
+    "#   #  #      #        #     #   #  \n" +
+    "#####  #####  #        #       #   \n" +
+    "#   #  #      #        #     #   #  \n" +
+    "#   #  #####  #####  #####  #     #");
         title.setForeground(GREEN);
         title.setFont(new Font(Font.MONOSPACED, Font.BOLD, 12));
         title.setBackground(BLACK);
@@ -90,6 +88,14 @@ public class RainShower {
                 BorderFactory.createLineBorder(new Color(70, 70, 70)),
                 BorderFactory.createEmptyBorder(9, 10, 9, 10)));
         input.addActionListener(this::runCommand);
+        input.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    input.setText(lastCommand);
+                }
+            }
+        });
 
         runButton.setBackground(GREEN);
         runButton.setForeground(Color.WHITE);
@@ -113,7 +119,14 @@ public class RainShower {
             return;
         }
 
+        lastCommand = command;
         input.setText("");
+
+        if (command.equalsIgnoreCase("clear")) {
+            output.setText("Type help to see available commands.\n\n");
+            return;
+        }
+
         output.append("$ " + command + "\n");
         input.setEnabled(false);
         runButton.setEnabled(false);

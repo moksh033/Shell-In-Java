@@ -16,6 +16,7 @@ public class HelpCommand extends BuiltinCommand {
         System.out.println("  pwd             Print the current directory");
         System.out.println("  echo <text>     Print text");
         System.out.println("  type <command>  Identify a built-in or external command");
+        System.out.println("  clear           Clear the terminal screen");
         System.out.println("  help            Show this help message");
         System.out.println("  exit            Exit Shell-In-Java");
         System.out.println();

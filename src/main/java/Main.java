@@ -8,6 +8,7 @@ import shell.terminal.Termios;;
 
 public class Main {
     private static final BufferedReader WINDOWS_INPUT = new BufferedReader(new InputStreamReader(System.in));
+    private static String lastCommand = "";
 
     public static void main(String[] args) {
         Shell shell = new Shell();
@@ -20,6 +21,7 @@ public class Main {
             } else if (line.isBlank()) {
                 continue;
             } else {
+                lastCommand = line;
                 shell.run(line);
             }
         }
@@ -36,7 +38,7 @@ public class Main {
 
         final var autocompleter = new AutoCompleter();
 
-        try (final var _ = Termios.enableRawMode()) {
+        try (final var rawModeSession = Termios.enableRawMode()) {
             System.out.print("$ ");
 
             boolean bellRang = false;
@@ -82,8 +84,19 @@ public class Main {
                         break;
                     }
                     case 0x1b: {
-                        System.in.read();
-                        System.in.read();
+                        int next1 = System.in.read();
+                        int next2 = System.in.read();
+                        if (next1 == '[' && next2 == 'A') { // Up arrow
+                            if (!lastCommand.isEmpty()) {
+                                // Clear current line visually
+                                while (line.length() > 0) {
+                                    System.out.print("\b \b");
+                                    line.setLength(line.length() - 1);
+                                }
+                                line.append(lastCommand);
+                                System.out.print(lastCommand);
+                            }
+                        }
                         break;
                     }
                     case 0x7f: {
