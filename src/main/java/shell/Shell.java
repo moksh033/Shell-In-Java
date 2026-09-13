@@ -14,6 +14,7 @@ import shell.process.SystemProcessExecutor;
 
 public class Shell {
     private final Map<String, Command> builtinCommands;
+    private final Map<String, String> commandAliases;
     private final Environment environment;
     private final SystemProcessExecutor processExecutor;
     public static final boolean IS_WINDOWS = System.getProperty("os.name").startsWith("Windows");
@@ -22,8 +23,10 @@ public class Shell {
         this.environment = new SystemEnvironment();
         this.processExecutor = new SystemProcessExecutor();
         this.builtinCommands = new HashMap<>();
+        this.commandAliases = new HashMap<>();
 
         initializeBuiltinCommands();
+        initializeAliases();
     }
 
     private void initializeBuiltinCommands() {
@@ -34,6 +37,13 @@ public class Shell {
         builtinCommands.put("type", new TypeCommand(builtinCommands, environment));
         builtinCommands.put("help", new HelpCommand());
         builtinCommands.put("clear", new ClearCommand());
+    }
+
+    private void initializeAliases() {
+        if (IS_WINDOWS) {
+            // Map Unix-style commands to their Windows equivalents
+            commandAliases.put("ls", "dir");
+        }
     }
 
     public Map<String, Command> getBuiltinCommands() {
@@ -57,6 +67,10 @@ public class Shell {
             }
 
             String commandName = args.get(0);
+            // Resolve aliases (e.g. "ls" -> "dir" on Windows)
+            commandName = commandAliases.getOrDefault(commandName, commandName);
+            args.set(0, commandName);
+
             Command command = builtinCommands.getOrDefault(commandName,
                     new ExternalCommand(commandName, processExecutor));
             command.execute(args, redirection);

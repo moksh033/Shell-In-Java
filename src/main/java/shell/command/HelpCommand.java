@@ -21,7 +21,7 @@ public class HelpCommand extends BuiltinCommand {
         System.out.println("  exit            Exit Shell-In-Java");
         System.out.println();
         System.out.println("Advanced examples:");
-        System.out.println("  dir             List files in the current directory");
+        System.out.println("  dir / ls        List files in the current directory");
         System.out.println("  more demo.txt   Read a text file");
         System.out.println("  where java      Find an executable in PATH");
         System.out.println("  java -version   Show the Java runtime version");

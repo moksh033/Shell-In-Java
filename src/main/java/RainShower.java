@@ -48,7 +48,7 @@ public class RainShower {
         "  help            Show this help message\n" +
         "  exit            Exit Shell-In-Java\n\n" +
         "Advanced examples:\n" +
-        "  dir             List files in the current directory\n" +
+        "  dir / ls        List files in the current directory\n" +
         "  more demo.txt   Read a text file\n" +
         "  where java      Find an executable in PATH\n" +
         "  java -version   Show the Java runtime version\n" +
