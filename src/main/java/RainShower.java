@@ -83,7 +83,7 @@ public class RainShower {
         title.setFocusable(false);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
         
-        JLabel statusBar = new JLabel("CPU: 0.0%  |  RAM: 0.0 / 0.0 GB  |  Disk Free: 0.0 GB");
+        JLabel statusBar = new JLabel("Loading system stats...");
         statusBar.setForeground(new Color(200, 200, 200));
         statusBar.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         statusBar.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
@@ -94,6 +94,7 @@ public class RainShower {
         topPanel.add(statusBar, BorderLayout.SOUTH);
         root.add(topPanel, BorderLayout.NORTH);
 
+        updateStats(statusBar);
         javax.swing.Timer timer = new javax.swing.Timer(1500, e -> updateStats(statusBar));
         timer.start();
 
@@ -188,27 +189,64 @@ public class RainShower {
 
     private void updateStats(JLabel statusBar) {
         try {
-            com.sun.management.OperatingSystemMXBean osBean = 
-                (com.sun.management.OperatingSystemMXBean) java.lang.management.ManagementFactory.getOperatingSystemMXBean();
-            double cpuLoad = osBean.getCpuLoad() * 100;
-            if (cpuLoad < 0) cpuLoad = 0;
-            
-            long totalRam = osBean.getTotalPhysicalMemorySize();
-            long freeRam = osBean.getFreePhysicalMemorySize();
-            long usedRam = totalRam - freeRam;
-            
+            double cpuLoad = -1.0;
+            long totalRam = -1;
+            long freeRam = -1;
+
+            try {
+                Class<?> mfClass = Class.forName("java.lang.management.ManagementFactory");
+                Object osBean = mfClass.getMethod("getOperatingSystemMXBean").invoke(null);
+                try {
+                    java.lang.reflect.Method cpuMethod = osBean.getClass().getMethod("getCpuLoad");
+                    Object val = cpuMethod.invoke(osBean);
+                    if (val instanceof Number) {
+                        cpuLoad = ((Number) val).doubleValue() * 100.0;
+                    }
+                } catch (Throwable ignored) {}
+                try {
+                    java.lang.reflect.Method totalRamMethod = osBean.getClass().getMethod("getTotalPhysicalMemorySize");
+                    Object totalVal = totalRamMethod.invoke(osBean);
+                    if (totalVal instanceof Number) {
+                        totalRam = ((Number) totalVal).longValue();
+                    }
+                    java.lang.reflect.Method freeRamMethod = osBean.getClass().getMethod("getFreePhysicalMemorySize");
+                    Object freeVal = freeRamMethod.invoke(osBean);
+                    if (freeVal instanceof Number) {
+                        freeRam = ((Number) freeVal).longValue();
+                    }
+                } catch (Throwable ignored) {}
+            } catch (Throwable ignored) {}
+
             java.io.File rootFile = new java.io.File("C:\\");
+            if (!rootFile.exists()) {
+                rootFile = new java.io.File(".");
+            }
             long freeDisk = rootFile.getUsableSpace();
-            
-            String text = String.format("CPU: %.1f%%  |  RAM: %.1f / %.1f GB  |  Disk Free: %.1f GB", 
-                cpuLoad, 
-                usedRam / (1024.0*1024*1024), 
-                totalRam / (1024.0*1024*1024),
-                freeDisk / (1024.0*1024*1024));
-            
-            SwingUtilities.invokeLater(() -> statusBar.setText(text));
-        } catch (Exception e) {
-            SwingUtilities.invokeLater(() -> statusBar.setText("Stats unavailable"));
+
+            String text;
+            if (totalRam > 0 && cpuLoad >= 0) {
+                long usedRam = totalRam - freeRam;
+                text = String.format("CPU: %.1f%%  |  RAM: %.1f / %.1f GB  |  Disk Free: %.1f GB",
+                    cpuLoad,
+                    usedRam / (1024.0 * 1024 * 1024),
+                    totalRam / (1024.0 * 1024 * 1024),
+                    freeDisk / (1024.0 * 1024 * 1024));
+            } else {
+                Runtime rt = Runtime.getRuntime();
+                long totalJvm = rt.totalMemory();
+                long usedJvm = totalJvm - rt.freeMemory();
+                int cores = rt.availableProcessors();
+                text = String.format("JVM RAM: %.0f / %.0f MB  |  Cores: %d  |  Disk Free: %.1f GB",
+                    usedJvm / (1024.0 * 1024),
+                    totalJvm / (1024.0 * 1024),
+                    cores,
+                    freeDisk / (1024.0 * 1024 * 1024));
+            }
+
+            final String displayText = text;
+            SwingUtilities.invokeLater(() -> statusBar.setText(displayText));
+        } catch (Throwable t) {
+            SwingUtilities.invokeLater(() -> statusBar.setText("Helix Shell Ready"));
         }
     }
 
