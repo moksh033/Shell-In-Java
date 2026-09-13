@@ -36,6 +36,25 @@ public class RainShower {
     private final Shell shell = new Shell();
     private String lastCommand = "";
 
+    private static final String STARTUP_TEXT = 
+        "$ help\n" +
+        "Built-in commands:\n" +
+        "  cd <directory>  Change the current directory\n" +
+        "  pwd             Print the current directory\n" +
+        "  echo <text>     Print text\n" +
+        "  type <command>  Identify a built-in or external command\n" +
+        "  clear           Clear the terminal screen\n" +
+        "  help            Show this help message\n" +
+        "  exit            Exit Shell-In-Java\n\n" +
+        "Advanced examples:\n" +
+        "  dir             List files in the current directory\n" +
+        "  more demo.txt   Read a text file\n" +
+        "  where java      Find an executable in PATH\n" +
+        "  java -version   Show the Java runtime version\n" +
+        "  command 2> file Redirect command errors\n\n" +
+        "External commands are also available through PATH.\n" +
+        "Redirection: >, >>, 1>, 1>>, 2>, 2>>\n\n";
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new RainShower().show());
     }
@@ -63,7 +82,20 @@ public class RainShower {
         title.setEditable(false);
         title.setFocusable(false);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 4, 0));
-        root.add(title, BorderLayout.NORTH);
+        
+        JLabel statusBar = new JLabel("CPU: 0.0%  |  RAM: 0.0 / 0.0 GB  |  Disk Free: 0.0 GB");
+        statusBar.setForeground(new Color(200, 200, 200));
+        statusBar.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
+        statusBar.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(BLACK);
+        topPanel.add(title, BorderLayout.NORTH);
+        topPanel.add(statusBar, BorderLayout.SOUTH);
+        root.add(topPanel, BorderLayout.NORTH);
+
+        javax.swing.Timer timer = new javax.swing.Timer(1500, e -> updateStats(statusBar));
+        timer.start();
 
         output.setEditable(false);
         output.setBackground(BLACK);
@@ -71,7 +103,7 @@ public class RainShower {
         output.setCaretColor(GREEN);
         output.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 15));
         output.setMargin(new Insets(12, 12, 12, 12));
-        output.setText("Type help to see available commands.\n\n");
+        output.setText(STARTUP_TEXT);
 
         JScrollPane scrollPane = new JScrollPane(output);
         scrollPane.setBorder(BorderFactory.createLineBorder(new Color(55, 55, 55)));
@@ -123,7 +155,7 @@ public class RainShower {
         input.setText("");
 
         if (command.equalsIgnoreCase("clear")) {
-            output.setText("Type help to see available commands.\n\n");
+            output.setText(STARTUP_TEXT);
             return;
         }
 
@@ -152,6 +184,32 @@ public class RainShower {
                 input.requestFocusInWindow();
             }
         }.execute();
+    }
+
+    private void updateStats(JLabel statusBar) {
+        try {
+            com.sun.management.OperatingSystemMXBean osBean = 
+                (com.sun.management.OperatingSystemMXBean) java.lang.management.ManagementFactory.getOperatingSystemMXBean();
+            double cpuLoad = osBean.getCpuLoad() * 100;
+            if (cpuLoad < 0) cpuLoad = 0;
+            
+            long totalRam = osBean.getTotalPhysicalMemorySize();
+            long freeRam = osBean.getFreePhysicalMemorySize();
+            long usedRam = totalRam - freeRam;
+            
+            java.io.File rootFile = new java.io.File("C:\\");
+            long freeDisk = rootFile.getUsableSpace();
+            
+            String text = String.format("CPU: %.1f%%  |  RAM: %.1f / %.1f GB  |  Disk Free: %.1f GB", 
+                cpuLoad, 
+                usedRam / (1024.0*1024*1024), 
+                totalRam / (1024.0*1024*1024),
+                freeDisk / (1024.0*1024*1024));
+            
+            SwingUtilities.invokeLater(() -> statusBar.setText(text));
+        } catch (Exception e) {
+            SwingUtilities.invokeLater(() -> statusBar.setText("Stats unavailable"));
+        }
     }
 
     private final class TextAreaOutputStream extends OutputStream {
