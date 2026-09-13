@@ -47,6 +47,9 @@ The shell follows a clean execution pipeline:
    ```text
    Shell.exe
    ```
+
+> **Note:** Windows Defender SmartScreen might flag `Shell.exe` as an unrecognized app and warn that it is unsafe to run. This is a common false positive for unsigned indie software. It is completely safe to run; simply click **More info** -> **Run anyway**.
+
 > Keep the `app` and `runtime` folders in the same directory as `Shell.exe`.
 
 ### 2. Standalone JAR
