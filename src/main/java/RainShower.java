@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -65,6 +66,12 @@ public class RainShower {
         frame.setMinimumSize(new Dimension(760, 500));
         frame.setSize(900, 600);
         frame.setLocationRelativeTo(null);
+
+        try (java.io.InputStream iconStream = RainShower.class.getResourceAsStream("/icon.png")) {
+            if (iconStream != null) {
+                frame.setIconImage(ImageIO.read(iconStream));
+            }
+        } catch (Exception ignored) {}
 
         JPanel root = new JPanel(new BorderLayout(0, 14));
         root.setBackground(BLACK);
