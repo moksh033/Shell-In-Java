@@ -1,8 +1,8 @@
-# Shell
+# Helix
 
 A lightweight desktop command shell built from scratch using Java.
 
-Shell accepts interactive commands, is capable of running external programs, understands quoting and redirection, provides command history recall, and has terminal autocomplete facilities on POSIX systems.
+Helix accepts interactive commands, is capable of running external programs, understands quoting and redirection, provides command history recall, and has terminal autocomplete facilities on POSIX systems.
 
 ## Tech Stack Used
 
