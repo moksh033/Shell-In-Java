@@ -15,7 +15,7 @@ import shell.process.SystemProcessExecutor;
 public class Shell {
     private final Map<String, Command> builtinCommands;
     private final Environment environment;
-    private final ProcessExecutor processExecutor;
+    private final SystemProcessExecutor processExecutor;
     public static final boolean IS_WINDOWS = System.getProperty("os.name").startsWith("Windows");
 
     public Shell() {
@@ -28,7 +28,7 @@ public class Shell {
 
     private void initializeBuiltinCommands() {
         builtinCommands.put("exit", new ExitCommand());
-        builtinCommands.put("echo", new EchoCommand());
+        builtinCommands.put("echo", new EchoCommand(environment));
         builtinCommands.put("pwd", new PwdCommand(environment));
         builtinCommands.put("cd", new CdCommand(environment));
         builtinCommands.put("type", new TypeCommand(builtinCommands, environment));
@@ -60,6 +60,10 @@ public class Shell {
             Command command = builtinCommands.getOrDefault(commandName,
                     new ExternalCommand(commandName, processExecutor));
             command.execute(args, redirection);
+
+            // Sync processExecutor working directory after every command
+            // (handles cd changing the shell's cwd)
+            processExecutor.setWorkingDirectory(environment.getCurrentDirectory());
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
