@@ -76,7 +76,7 @@ chmod +x run.sh
 
 ## Preview
 
-![Shell Preview](Screenshot%202026-09-12%20043057.png)
+![Shell Preview]([Screenshot%202026-09-12%20043057.png](https://github.com/moksh033/Shell-In-Java/blob/main/Screenshot%202026-09-14%20135321.png))
 
 ```text
 $ pwd
