@@ -76,8 +76,8 @@ chmod +x run.sh
 
 ## Preview
 
-![Shell Preview](Screenshot35321.png)
-
+<p align="center">
+  <img src="./Screenshot%202026-09-14%20135321
 ```text
 $ pwd
 /home/user/Shell-In-Java
@@ -91,6 +91,12 @@ echo is a shell builtin
 $ echo "First line" > output.txt
 $ echo "Second line" >> output.txt
 $ more output.txt
+First line
+Second line
+
+$ clear
+```
+
 First line
 Second line
 
