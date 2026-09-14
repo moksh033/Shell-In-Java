@@ -76,7 +76,7 @@ chmod +x run.sh
 
 ## Preview
 
-![Shell Preview]([Screenshot%202026-09-12%20043057.png])
+![Shell Preview](Screenshot35321.png)
 
 ```text
 $ pwd
