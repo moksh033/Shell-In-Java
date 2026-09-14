@@ -9,6 +9,16 @@ Helix accepts interactive commands, is capable of running external programs, und
 - **Java 21 / 25**
 - **Maven**
 - **JNA (Java Native Access)**
+
+
+
+
+
+
+
+
+
+
 - **ProcessBuilder**
 - **POSIX terminal APIs (Termios)**
 - **Java Swing GUI**
@@ -76,7 +86,7 @@ chmod +x run.sh
 
 ## Preview
 
-![Shell Preview](Screenshot%202026-09-13%20235517.png)
+![Shell Preview](Screenshot%202026-09-14%20135321.png)
 
 ```text
 $ pwd
